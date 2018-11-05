@@ -8,6 +8,8 @@ OEIS [page](https://oeis.org/).
 
 Current To-Do:
 
+[ ] Pipeline для предобработки последовательностей (паддинг, фичи\таргет, train\test сплит)
+
 [ ] EDA
 
 [ ] Vizualization (for Presentation and insight)
