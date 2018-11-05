@@ -3,6 +3,7 @@
 Group project made during uData Crash Course.
 
 Kaggle [page](https://www.kaggle.com/c/integer-sequence-learning/).
+
 OEIS [page](https://oeis.org/).
 
 Current To-Do:
