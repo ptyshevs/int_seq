@@ -29,3 +29,10 @@ def truncate_numbers(numbers, maxlen=100, normalize=True):
     X = X.reshape(X.shape[0], X.shape[1], 1)
     y = trunc[:, -1]
     return X, y
+
+def acc_score(y_true, y_pred):
+    cnt_matches = 0
+    for true, pred in zip(y_true, y_pred):
+        if true == pred:
+            cnt_matches += 1
+    return cnt_matches / len(y_true)
