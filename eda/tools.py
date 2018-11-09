@@ -2,13 +2,15 @@ import numpy as np
 import pandas as pd
 
 
-def seq_to_num(sequence, delimiter=',', dtype=np.float64, pad=True, pad_maxlen=100, target_split=True, drop_na_inf=True, bins_by='terms', nbins=1):
+def seq_to_num(sequence, delimiter=',', dtype=np.float64, target_split=True, 
+               pad=True, pad_maxlen=100, pad_adaptive=True, 
+               drop_na_inf=True, nbins=1, bins_by='terms'):
     """
     Split sequence by delimiter and convert to numbers,
     
     TODO:
-    [ ] Pad each bin separatedly
-    [ ] Save bin indexes AFTER THE FUCKING NAN/INF REMOVAL
+    [X] Pad each bin separatedly
+    [~] Save bin indexes after nan/inf removal (seems to work)
     
     @param delimiter: split each sequence string using this delimiter
     @param dtype: convert each term into number using this data type
@@ -35,14 +37,22 @@ def seq_to_num(sequence, delimiter=',', dtype=np.float64, pad=True, pad_maxlen=1
             idx = split_vals.index[i * bin_size: (i + 1) * bin_size]
             subset = num[idx]
             if pad:
+                if pad_adaptive:
+                    pad_maxlen = int(subset.map(lambda x: len(x)).median() + 2)
                 subset = pad_sequences(subset, value=0.0, maxlen=pad_maxlen, dtype=dtype)
-            if drop_na_inf:
-                idx_left = ~(np.isnan(subset).any(axis=1) | np.isinf(subset).any(axis=1))
-                subset = subset[idx_left]
-                idx = idx[idx_left]
-            if target_split:
-                subset = subset[:, :-1], subset[:, -1]
-            subset = subset, idx
+                if drop_na_inf:
+                    idx_left = ~(np.isnan(subset).any(axis=1) | np.isinf(subset).any(axis=1))
+                    subset = subset[idx_left]
+                    idx = idx[idx_left]
+                if target_split:
+                    subset = subset[:, :-1], subset[:, -1]
+                    subset = subset[0], subset[1], idx
+                else:
+                    subset = subset, idx
+            else:
+                if target_split:
+                    subset = subset.map(lambda x: x[:-1]), subset.map(lambda x: x[-1])
+                    subset = subset[0], subset[1], idx
             bins.append(subset)
         return bins
     if pad:
@@ -60,12 +70,26 @@ def seq_to_num(sequence, delimiter=',', dtype=np.float64, pad=True, pad_maxlen=1
         return X, y
     return num
 
-
-
+def prep_submit(predictions: pd.Series, filename='submit.csv'):
+    """
+    Given predictions Series, format it properly for submition
+    
+    Note:
+        Don't convert floats beforehand! We can store them as strings
+    """
+    predictions.name = 'Last'
+    predictions.index.name = 'Id'
+    predictions.to_csv(filename, header=True, float_format='%.f')
+    
 
 def acc_score(y_true, y_pred):
+    """
+    Calculate accuracy for the given predictions vector
+    """
     cnt_matches = 0
     for true, pred in zip(y_true, y_pred):
         if true == pred:
             cnt_matches += 1
     return cnt_matches / len(y_true)
+
+
