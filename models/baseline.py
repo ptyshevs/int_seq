@@ -1,7 +1,7 @@
 import numpy as np
 
 class Baseline:
-    def __init__(self, mode='mode'):
+    def __init__(self, function='mode'):
         """
         Class used as a baseline for submission, when every other appoach
         has appeared to be unsuccessful.
@@ -11,8 +11,9 @@ class Baseline:
               * median: predict median for a sequence
         """
         self.pred_func = self._mode
-        if mode == 'median':
+        if function == 'median':
             self.pred_func = self._median
+        self.params = {"function": function}
     
     def predict(self, data):
         pred = np.zeros_like(data, dtype=np.float64)
@@ -32,3 +33,6 @@ class Baseline:
     def _median(self, seq):
         return np.median(seq)
     
+    def __repr__(self):
+        params = ', '.join([f"{par}={val}" for par, val in self.params.items()])
+        return f"{self.__class__.__name__}({params})"
