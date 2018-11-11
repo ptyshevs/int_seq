@@ -90,6 +90,8 @@ def acc_score(y_true, y_pred):
     Calculate accuracy for the given predictions vector
     """
     cnt_matches = 0
+    if len(y_true) == 0:
+        return cnt_matches
     for true, pred in zip(y_true, y_pred):
         if true == pred:
             cnt_matches += 1
