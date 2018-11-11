@@ -97,4 +97,18 @@ def acc_score(y_true, y_pred):
             cnt_matches += 1
     return cnt_matches / len(y_true)
 
-
+def data_split(path_to_data, frac=.7, remove_dup=True, save=True, random_state=42):
+    """
+    Split dataset into train/test with possible duplicate removal
+    """
+    df = pd.read_csv(path_to_data, index_col=0)
+    if remove_dup:
+        df = df.drop_duplicates(subset='Sequence')
+    df_train = df.sample(frac=frac, random_state=random_state)
+    # select all rows that are not in `df_train`
+    df_test = df.loc[~df.index.isin(df_train.index), :]
+    # shuffle dataset to randomize id further
+    df_test = df_test.sample(frac=1, random_state=random_state)
+    if save:
+        df_train.to_csv('../data/train.csv', index=True)
+        df_test.to_csv('../data/test.csv', index=True)
