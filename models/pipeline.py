@@ -7,7 +7,7 @@ class Pipeline:
         Pipeline is a collection of algorithms used sequentially to predict target.
         Every algorithm (except for fallback) should return tuple of (sequences_solved, indices, prediction)
         
-        @param models: list of (name, model) pairs
+        @param models: list of (name, model, filter) pairs
         @param fallback: model used on sequences that remained unsolved after passing through all models.
         @param verbose: output additional information during predict
         """
@@ -36,8 +36,11 @@ class Pipeline:
         self.stat = []
         predictions = pd.Series(np.zeros(len(data)), index=data.index)
         indices_solved = []
-        for name, model in self.models:
-            _, ind, pred = model.predict(data[~data.index.isin(indices_solved)])
+        for name, model, filt in self.models:
+            subset = data[~data.index.isin(indices_solved)]
+            if filt is not None:
+                subset = subset[subset.map(filt)]
+            _, ind, pred = model.predict(subset)
             if self.verbose:
                 print(f"solved by {name}: {len(ind)}")
             predictions[ind] = pred
