@@ -4,12 +4,14 @@ import numpy as np
 target_wrap = lambda val, f: f([val])
 
 # Filter out sequences that consist of single digit (MChain)
+markov_filter = lambda seq: len(seq) > 0 and np.all([0 <= x < 10 for x in seq])
 single_digit = lambda seq: np.all([0 <= x < 10 for x in seq])
 
 # Return true if sequence is not empty
 non_empty = lambda seq: len(seq) > 0
 
-markov_filter = lambda seq: len(seq) > 0 and np.all([0 <= x < 10 for x in seq])
+# RNN filter
+rnn_filter = lambda seq: len(seq) > 0 and np.all([0 <= x < 1000 for x in seq])
 
 # Cast to int
 int_cast = lambda seq: [int(x) for x in seq]

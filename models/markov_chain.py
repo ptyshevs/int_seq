@@ -72,3 +72,7 @@ class MarkovChain:
             if oc_sum > 0:
                 row[:] = [el / oc_sum for el in row]
         return trans_matrix
+    
+    def __repr__(self):
+        params = ', '.join([f"{par}={val}" for par, val in self.params.items()])
+        return f"{self.__class__.__name__}({params})"

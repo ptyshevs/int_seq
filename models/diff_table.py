@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 class DiffTable:
-    def __init__(self, maxstep=8, stoplen=2, verbose=False):
+    def __init__(self, maxstep=10, stoplen=2, verbose=False):
         """
         Solver based on discrete derivative approximation.
         """
