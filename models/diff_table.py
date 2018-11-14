@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import tqdm
 
 class DiffTable:
     def __init__(self, maxstep=10, stoplen=2, verbose=False):
@@ -36,7 +37,7 @@ class DiffTable:
         indices = []
         predictions = []
         ind_iter = data.index if isinstance(data, (np.ndarray, pd.Series)) else range(len(data))
-        for seq, idx in zip(data, ind_iter):
+        for seq, idx in tqdm.tqdm(zip(data, ind_iter)):
             solution_found = False
             for step in range(1, self.maxstep + 1):
                 if len(seq) < (step + self.stoplen):

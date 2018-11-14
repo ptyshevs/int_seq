@@ -13,7 +13,7 @@ class LinearModel:
     def create_system(self, sequence, order):
         if len(sequence) < self.start_index_a + order + order + 1:
             # print("Impossible create system")
-            return '-100', '-100'
+            return None, None
         # x3=ax0+bx1+c
         index_b = self.start_index_a + order
         a = list()
@@ -40,14 +40,13 @@ class LinearModel:
         # create system
         try:
             a, b = self.create_system(sequence, order)
-            if a == '-100':
-                return -1, 0
+            if a is None or b is None:
+                return False, 0
             solution = np.linalg.solve(a, b)
         except np.linalg.linalg.LinAlgError:
-            return '000', 0
+            return False, 0
         except IndexError:
-            print('1index error')
-            return '0000', 0
+            return False, 0
         # check if solution satisfied all items in sequence
         check = self.check_solution(sequence, solution)
         if check:
