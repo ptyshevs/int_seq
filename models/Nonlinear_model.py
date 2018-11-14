@@ -38,7 +38,7 @@ class NonLinearModel:
         try:
             solution = np.linalg.solve(a, b)
         except np.linalg.LinAlgError:
-            print('numpy error')
+#             print('numpy error')
             return '000'
         if self.check_solution(sequence, solution):
             pred_value = self.calculate_nonlinear_polynom([sequence[-2], sequence[-1]], solution)
@@ -77,4 +77,4 @@ class NonLinearModel:
                 continue
             predicted_values.append(np.round(pred_val))
             indices.append(ind)
-        return predicted_values, indices
+        return [], indices, predicted_values

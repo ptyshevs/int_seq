@@ -13,6 +13,8 @@ class Baseline:
         self.pred_func = self._mode
         if function == 'median':
             self.pred_func = self._median
+        elif function == 'last':
+            self.pred_func = self._last
         self.params = {"function": function}
     
     def predict(self, data):
@@ -32,6 +34,9 @@ class Baseline:
 
     def _median(self, seq):
         return np.median(seq)
+    
+    def _last(self, seq):
+        return seq[-1]
     
     def __repr__(self):
         params = ', '.join([f"{par}={val}" for par, val in self.params.items()])

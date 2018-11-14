@@ -80,4 +80,4 @@ class LinearModel:
                 continue
             predicted_values.append(np.round(pred_val))
             indices.append(ind)
-        return predicted_values, indices
+        return [], indices, predicted_values
