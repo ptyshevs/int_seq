@@ -1,24 +1,63 @@
 from flask import Flask, jsonify, render_template, request
-import numpy as np
 import sys
 sys.path.append('../..')
+import numpy as np
+from models.pipeline import Pipeline
+from models.baseline import Baseline
+from models.diff_table import DiffTable
+from models.linear_model import LinearModel
+from models.nonlinear_model import NonLinearModel
+from models.markov_chain import MarkovChain
+from models.rnn import RNN
+from models.lin_reg import LinReg
+# trie takes > 600 seconds to load, skipping
+# from models.trie import Trie
+from preproc.filters import markov_filter, rnn_filter
+
 
 app = Flask(__name__)
+
+
+def load_pipeline():
+    models = [
+        ('DT', DiffTable(), None),
+        ('LRR', LinearModel(), None),
+        ('NLRR', NonLinearModel(), None),
+        ('MC', MarkovChain(), markov_filter),
+        ('RNN', RNN(), rnn_filter),
+        ('LR', LinReg(), None)
+    ]
+    pipe = Pipeline(models, fallback=Baseline())
+    print("Pipeline has been loaded now")
+    return pipe
+
+
+model = load_pipeline()
+
 
 @app.route('/')
 def entry_point():
     return render_template('index.html')
 
-@app.route('/', methods=['POST'])
+
+@app.route('/predict', methods=['POST'])
 def form_process():
     text = request.form['text']
     # print(text)
-    prepare_sequence(text)
-    return render_template('index.html', form=form_process, text=text)
+    values = prepare_sequence(text)
+    if values is not None:
+        print("Values to predict:", values)
+        modname, pred = model.predict1(values)[0]
+        pred = str(int(pred))
+    return render_template('index.html',
+                           prediction=pred, pred_by=modname)
+
 
 def prepare_sequence(text):
-    values = list(map(int, text.split(',')))
-    print(values)
+    try:
+        return list(map(int, text.split(',')))
+    except ValueError:
+        return None
 
 
 @app.route('/ping', methods=['GET'])

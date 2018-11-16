@@ -24,7 +24,7 @@ class RNN:
         """
         Pad sequences in data and expand dimention of features
         """
-        ind = data.index
+        ind = data.index if isinstance(data, (np.ndarray, pd.Series)) else range(len(data))
         data = pad_sequences(data, maxlen=self.input_len, dtype='int32')
         data = np.expand_dims(data, 2)
         return data, ind
@@ -33,7 +33,10 @@ class RNN:
         data, ind = self._prep_data(data)
         pred = self.model.predict(data)
         pred = np.argmax(pred, axis=1)
-        return [], ind.tolist(), pred
+        if hasattr(ind, 'tolist'):
+            return [], ind.tolist(), pred
+        else:
+            return [], list(ind), pred
     
     def __repr__(self):
         params = ', '.join([f"{par}={val}" for par, val in self.params.items()])

@@ -3,11 +3,12 @@ import pickle
 from functools import reduce
 import tqdm
 
+
 class _prefixTree:
     def __init__(self):
-        self.data={}
-        self.puts=0
-        self.nodes=0
+        self.data = {}
+        self.puts = 0
+        self.nodes = 0
         self.params = {'puts': self.puts, 'nodes': self.nodes}
     
     def put(self, seq, value):
