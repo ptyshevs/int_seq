@@ -22,6 +22,8 @@ class LinReg:
         self.poly_deg = poly_deg
         self.verbose = verbose
         self._mod = LinearRegression()
+        self.params = {'max_prev': self.max_prev, 'poly_deg': self.poly_deg, 'model': self._mod,
+                       'verbose': self.verbose}
     
     def predict(self, data):
         sequences = []
@@ -77,3 +79,7 @@ class LinReg:
             X = PolynomialFeatures(self.poly_deg).fit_transform(X)
         y = seq[num_of_points:]
         return X, y
+
+    def __repr__(self):
+        params = ', '.join([f"{par}={val}" for par, val in self.params.items()])
+        return f"{self.__class__.__name__}({params})"
