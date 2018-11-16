@@ -1,4 +1,7 @@
-from flask import Flask, jsonify, render_template, request, flash
+from flask import Flask, jsonify, render_template, request
+import numpy as np
+import sys
+sys.path.append('../..')
 
 app = Flask(__name__)
 
@@ -10,9 +13,12 @@ def entry_point():
 def form_process():
     text = request.form['text']
     # print(text)
-    print(request.values)
+    prepare_sequence(text)
     return render_template('index.html', form=form_process, text=text)
 
+def prepare_sequence(text):
+    values = list(map(int, text.split(',')))
+    print(values)
 
 
 @app.route('/ping', methods=['GET'])
