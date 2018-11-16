@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="static/style.css">
+<body>
+  <script src="static/main.js"></script>
+  <h1>Hi, it's static page</h1>
+  <form method="POST">
+      <input name="text">
+      <input name="text2">
+      <input type="submit">
+  </form>
+    <h1>Received, {% if text %}{{ text }}{% else %}Nothing{% endif %}!</h1>
+    {% block title %}FLASKY{% endblock %}
+</body>
+</html>
