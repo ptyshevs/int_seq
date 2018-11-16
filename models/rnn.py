@@ -10,7 +10,7 @@ class RNN:
         self.input_len = input_len
         self.model = self._build_model()
         self.model.load_weights(weights_file)
-        self.params = {'input_len:', self.input_len, 'model': self.model}
+        self.params = {'input_len:': self.input_len, 'model': self.model}
         
     
     def _build_model(self):
