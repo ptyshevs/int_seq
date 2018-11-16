@@ -97,7 +97,6 @@ class Trie:
                 if firstInTrie:
                     break
                 der_train = self._find_derivative(der_train)
-        self.save()
         return self
     
     def _find_derivative(self, seq):
