@@ -45,7 +45,7 @@
     </div>
     <div id="container">
         <form method="POST" action="/predict">
-            <input name="text" size="40px" />
+            <input name="text" size="40px" autocomplete="off" type="text"/>
             <button>Predict</button>
         </form>
         <h1>{% if prediction %}{{ prediction }}{% else %}Nothing{% endif %}!</h1>

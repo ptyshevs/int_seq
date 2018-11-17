@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 import sys
 sys.path.append('../..')
-import numpy as np
 from models.pipeline import Pipeline
 from models.baseline import Baseline
 from models.diff_table import DiffTable
@@ -18,7 +17,7 @@ from preproc.filters import markov_filter, rnn_filter
 app = Flask(__name__)
 
 
-def load_pipeline():
+def load_pipeline(verbose=False):
     models = [
         ('Difference Table', DiffTable(), None),
         ('Linear Recurrent Relation', LinearModel(), None),
@@ -28,7 +27,8 @@ def load_pipeline():
         ('Recurrent NeuralNet', RNN(), rnn_filter),
     ]
     pipe = Pipeline(models, fallback=Baseline())
-    print("Pipeline has been loaded now")
+    if verbose:
+        print("Pipeline has been loaded now")
     return pipe
 
 
@@ -46,7 +46,6 @@ def form_process():
     # print(text)
     values = prepare_sequence(text)
     if values is not None:
-        print("Values to predict:", values)
         modname, pred = model.predict1(values)
         pred = str(int(pred))
         return render_template('index.html', prediction=pred, pred_by=modname)

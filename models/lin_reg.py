@@ -31,7 +31,7 @@ class LinReg:
         predictions = []
         ind_iter = data.index if isinstance(data, (np.ndarray, pd.Series)) else range(len(data))
         for seq, ind in tqdm.tqdm(zip(data, ind_iter)):
-            if len(seq) < 2:
+            if len(seq) <= 2:
                 continue
             pred = self._pred_best_reg(seq)
             if pred is None:
