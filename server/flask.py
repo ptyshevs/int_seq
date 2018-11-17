@@ -6,7 +6,7 @@ from models.pipeline import Pipeline
 from models.baseline import Baseline
 from models.diff_table import DiffTable
 from models.linear_model import LinearModel
-from models.nonlinear_model import NonLinearModel
+from models.Nonlinear_model import NonLinearModel
 from models.markov_chain import MarkovChain
 from models.rnn import RNN
 from models.lin_reg import LinReg
