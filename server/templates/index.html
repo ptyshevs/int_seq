@@ -3,17 +3,20 @@
     <head>
         <script src="static/main.js"></script>
         <link rel="stylesheet" type="text/css" href="static/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <body>
     <h1 id="project_name">Integer Sequence Learning</h1>
     <div id="description">
-        This is live demo of uData Crash Course group project made by our
-        team, @BinaryCat. <a href="https://www.kaggle.com/c/integer-sequence-learning/" class="links">Integer Sequence Learning</a> is
-        a Kaggle competition aimed to discover new approaches to non-typical Data Science problems. Dataset contains 100K
-        sequences, and the objective is to predict the next term. Metric used for model evaluation is <a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy" class="links">Accuracy</a>, hence
+        <span> This is live demo of uData Crash Course group project made by our team, @BinaryCat.</span>
+        <a href="https://www.kaggle.com/c/integer-sequence-learning/" class="links">Integer Sequence Learning</a>
+        <span>is a Kaggle competition aimed to discover new approaches to non-typical Data Science problems. Dataset contains 100K
+            sequences, and the objective is to predict the next term. Metric used for model evaluation is </span>
+        <a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy" class="links">Accuracy</a>
+        <span>, hence
         we're heavily penalised for making incorrect predictions. Our model uses a pipeline of algorithms to break task into
-        more manageable pieces. Here is a short description of each algorithm:
+            more manageable pieces. Here is a short description of each algorithm:</span>
         <ol style="margin-left:20px;margin-top:20px;">
             <li>
                 Prefix lookup using Trie data structure.
@@ -45,7 +48,8 @@
             <input name="text" size="40px" />
             <button>Predict</button>
         </form>
-        <h1>{% if text %}{{ text }}{% else %}Nothing{% endif %}!</h1>
+        <h1>{% if prediction %}{{ prediction }}{% else %}Nothing{% endif %}!</h1>
+        <h3>{% if pred_by %}Predicted by: {{ pred_by }}{% endif %}</h3>
     </div>
     </body>
     <div id="footer">

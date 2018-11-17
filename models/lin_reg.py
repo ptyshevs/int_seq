@@ -46,13 +46,16 @@ class LinReg:
         Try to fit linear regression to previous several numbers, recording score and looking for perfect fit
         """
         min_num = min(len(seq) - 1, 1)
-        max_num = min(len(seq)- 1, self.max_prev)
+        max_num = min(len(seq) - 1, self.max_prev)
         best_acc, best_num_of_points = -1, -1
         for num_of_points in range(min_num, max_num + 1):
             X, y = self._create_data(seq, num_of_points)
             self._mod.fit(X, y)
             pred = self._mod.predict(X).round()
-            acc = acc_score(y.round(), pred)
+            try:
+                acc = acc_score(y.round(), pred)
+            except AttributeError:
+                acc = acc_score([round(_) for _ in y], pred)
             if acc > best_acc:
                 best_acc = acc
                 best_num_of_points = num_of_points

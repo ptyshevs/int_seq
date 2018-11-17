@@ -62,10 +62,10 @@ class Pipeline:
             if filt is not None:
                 if not filt(data):
                     continue
-            _, ind, pred = model.predict([data])
+            _, ind, pred = model.predict(pd.Series([data]))
             if len(ind) > 0:
                 print(f"predicted by {name}: {pred}")
-                return name, pred
+                return name, pred[0]
         print("fall-backing")
         return 'fall-back model', self.fallback.predict([seq])[0]
 

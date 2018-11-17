@@ -20,12 +20,12 @@ app = Flask(__name__)
 
 def load_pipeline():
     models = [
-        ('DT', DiffTable(), None),
-        ('LRR', LinearModel(), None),
-        ('NLRR', NonLinearModel(), None),
-        ('MC', MarkovChain(), markov_filter),
-        ('RNN', RNN(), rnn_filter),
-        ('LR', LinReg(), None)
+        ('Difference Table', DiffTable(), None),
+        ('Linear Recurrent Relation', LinearModel(), None),
+        ('Non-linear Recurrent Relation', NonLinearModel(), None),
+        ('Markov Chain', MarkovChain(), markov_filter),
+        ('Linear Regression', LinReg(), None),
+        ('Recurrent NeuralNet', RNN(), rnn_filter),
     ]
     pipe = Pipeline(models, fallback=Baseline())
     print("Pipeline has been loaded now")
@@ -47,10 +47,11 @@ def form_process():
     values = prepare_sequence(text)
     if values is not None:
         print("Values to predict:", values)
-        modname, pred = model.predict1(values)[0]
+        modname, pred = model.predict1(values)
         pred = str(int(pred))
-    return render_template('index.html',
-                           prediction=pred, pred_by=modname)
+        return render_template('index.html', prediction=pred, pred_by=modname)
+    else:
+        return render_template('index.html', prediction=None, pred_by=None)
 
 
 def prepare_sequence(text):
