@@ -19,10 +19,12 @@ i = 1
 for k in k_:
     for minl in minlen:
         for un in unique:
+            if markov_model.bad_model:
+                continue
+            markov_model = mark_chain.MarkovChains(max_unique_count=un, minlen=minl, slice=-1, k=k)
             kk.append(k)
             uni.append(un)
             minll.append(minl)
-            markov_model = mark_chain.MarkovChains(max_unique_count=un, minlen=minl, slice=-1, k=k)
             ind, sequences, pred = markov_model.predict(train_X)
             score = acc_score(pred, train_y[ind])
             scores.append(score)
