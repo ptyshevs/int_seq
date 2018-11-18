@@ -22,6 +22,8 @@ class LinReg:
         self.poly_deg = poly_deg
         self.verbose = verbose
         self._mod = LinearRegression()
+        self.params = {'max_prev': self.max_prev, 'poly_deg': self.poly_deg, 'model': self._mod,
+                       'verbose': self.verbose}
     
     def predict(self, data):
         sequences = []
@@ -29,7 +31,7 @@ class LinReg:
         predictions = []
         ind_iter = data.index if isinstance(data, (np.ndarray, pd.Series)) else range(len(data))
         for seq, ind in tqdm.tqdm(zip(data, ind_iter)):
-            if len(seq) < 2:
+            if len(seq) <= 2:
                 continue
             pred = self._pred_best_reg(seq)
             if pred is None:
@@ -44,13 +46,16 @@ class LinReg:
         Try to fit linear regression to previous several numbers, recording score and looking for perfect fit
         """
         min_num = min(len(seq) - 1, 1)
-        max_num = min(len(seq)- 1, self.max_prev)
+        max_num = min(len(seq) - 1, self.max_prev)
         best_acc, best_num_of_points = -1, -1
         for num_of_points in range(min_num, max_num + 1):
             X, y = self._create_data(seq, num_of_points)
             self._mod.fit(X, y)
             pred = self._mod.predict(X).round()
-            acc = acc_score(y.round(), pred)
+            try:
+                acc = acc_score(y.round(), pred)
+            except AttributeError:
+                acc = acc_score([round(_) for _ in y], pred)
             if acc > best_acc:
                 best_acc = acc
                 best_num_of_points = num_of_points
@@ -77,3 +82,7 @@ class LinReg:
             X = PolynomialFeatures(self.poly_deg).fit_transform(X)
         y = seq[num_of_points:]
         return X, y
+
+    def __repr__(self):
+        params = ', '.join([f"{par}={val}" for par, val in self.params.items()])
+        return f"{self.__class__.__name__}({params})"

@@ -11,7 +11,7 @@ single_digit = lambda seq: np.all([0 <= x < 10 for x in seq])
 non_empty = lambda seq: len(seq) > 0
 
 # RNN filter
-rnn_filter = lambda seq: len(seq) > 0 and np.all([0 <= x < 1000 for x in seq])
+rnn_filter = lambda seq: len(seq) > 2 and np.all([0 <= x < 1000 for x in seq])
 
 # Cast to int
 int_cast = lambda seq: [int(x) for x in seq]

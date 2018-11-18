@@ -55,7 +55,18 @@ class Pipeline:
         self.stat.append((str(self.fallback), len(unsolved_seq)))
         predictions[unsolved_seq.index] = self.fallback.predict(unsolved_seq)
         return predictions
-    
+
+    def predict1(self, seq):
+        for name, model, filt in self.models:
+            data = seq
+            if filt is not None:
+                if not filt(data):
+                    continue
+            _, ind, pred = model.predict(pd.Series([data]))
+            if len(ind) > 0:
+                return name, pred[0]
+        return 'fall-back model', self.fallback.predict(pd.Series([seq]))[0]
+
     @property
     def stat_(self):
         """

@@ -11,6 +11,7 @@ class MarkovChain:
         """
         self.n_prev = n_prev
         self.verbose = verbose
+        self.params = {'n_prev': self.n_prev, 'verbose': self.verbose}
     
     def predict(self, data):
         sequences = []
@@ -18,6 +19,7 @@ class MarkovChain:
         predictions = []
         ind_iter = data.index if isinstance(data, (np.ndarray, pd.Series)) else range(len(data))
         for seq, ind in zip(data, ind_iter):
+            print("markov seq:", seq)
             pred = self._pred(seq)
             if pred == -1:
                 continue

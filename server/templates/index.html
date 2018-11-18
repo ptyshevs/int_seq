@@ -1,15 +1,61 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="static/style.css">
-<body>
-  <script src="static/main.js"></script>
-  <h1>Hi, it's static page</h1>
-  <form method="POST">
-      <input name="text">
-      <input name="text2">
-      <input type="submit">
-  </form>
-    <h1>Received, {% if text %}{{ text }}{% else %}Nothing{% endif %}!</h1>
-    {% block title %}FLASKY{% endblock %}
-</body>
+    <head>
+        <script src="static/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="static/style.css">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Integer Sequence Learning Live Demo</title>
+    </head>
+
+    <body>
+    <h1 id="project_name">Integer Sequence Learning</h1>
+    <div id="description">
+        <span> This is live demo of uData Crash Course group project made by our team, @BinaryCat.</span>
+        <a href="https://www.kaggle.com/c/integer-sequence-learning/" class="links">Integer Sequence Learning</a>
+        <span>is a Kaggle competition aimed to discover new approaches to non-typical Data Science problems. Dataset contains 100K
+            sequences, and the objective is to predict the next term. Metric used for model evaluation is </span>
+        <a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy" class="links">Accuracy</a>
+        <span>, hence
+        we're heavily penalised for making incorrect predictions. Our model uses a pipeline of algorithms to break task into
+            more manageable pieces. Here is a short description of each algorithm:</span>
+        <ol style="margin-left:20px;margin-top:20px;">
+            <li>
+                Prefix lookup using Trie data structure.
+            </li>
+            <li>
+                Difference Table
+            </li>
+            <li>
+                Linear and Non-linear Recurrent Relation
+            </li>
+            <li>
+                Markov Chain
+            </li>
+            <li>
+                Linear Regression
+            </li>
+            <li>
+                RNN
+            </li>
+            <li>
+                Mode. This is a good Baseline model to fall-back in case sequence
+                has slipped through the pipeline without being recognized by any
+                of more powerful models.
+            </li>
+        </ol>
+    </div>
+    <div id="container">
+        <form method="POST" action="/predict">
+            <input name="text" size="40px" autocomplete="off" type="text" value="{{text}}{% if prediction %}, {{ prediction }}{%endif %}" autofocus/>
+            <button>Predict</button>
+        </form>
+        <h1>{% if prediction %}{{ prediction }}{% else %}Nothing{% endif %}!</h1>
+        <h3>{% if pred_by %}Predicted by: {{ pred_by }}{% endif %}</h3>
+    </div>
+    </body>
+    <div id="footer">
+        <a href="https://www.github.com/ptyshevs/int_seq">
+            <img src="static/blacktocat-32.png" width="16px" height="16px" style="padding-right:5px;">Fork on GitHub</a>
+    </div>
 </html>
