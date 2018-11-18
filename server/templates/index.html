@@ -1,61 +1,93 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <script src="static/main.js"></script>
-        <link rel="stylesheet" type="text/css" href="static/style.css">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Integer Sequence Learning Live Demo</title>
-    </head>
+<html lang="en">
 
-    <body>
-    <h1 id="project_name">Integer Sequence Learning</h1>
-    <div id="description">
-        <span> This is live demo of uData Crash Course group project made by our team, @BinaryCat.</span>
-        <a href="https://www.kaggle.com/c/integer-sequence-learning/" class="links">Integer Sequence Learning</a>
-        <span>is a Kaggle competition aimed to discover new approaches to non-typical Data Science problems. Dataset contains 100K
-            sequences, and the objective is to predict the next term. Metric used for model evaluation is </span>
-        <a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy" class="links">Accuracy</a>
-        <span>, hence
-        we're heavily penalised for making incorrect predictions. Our model uses a pipeline of algorithms to break task into
-            more manageable pieces. Here is a short description of each algorithm:</span>
-        <ol style="margin-left:20px;margin-top:20px;">
-            <li>
-                Prefix lookup using Trie data structure.
-            </li>
-            <li>
-                Difference Table
-            </li>
-            <li>
-                Linear and Non-linear Recurrent Relation
-            </li>
-            <li>
-                Markov Chain
-            </li>
-            <li>
-                Linear Regression
-            </li>
-            <li>
-                RNN
-            </li>
-            <li>
-                Mode. This is a good Baseline model to fall-back in case sequence
-                has slipped through the pipeline without being recognized by any
-                of more powerful models.
-            </li>
-        </ol>
-    </div>
-    <div id="container">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISL | Home</title>
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="../images/logo-icon.ico" />
+  <script src="../static/main.js"></script>
+</head>
+
+<body onload="postload()">
+  <div id="preloader"></div>
+
+  <div id="content" class="animate-bottom">
+    <header>
+      <div class="container">
+        <div id="branding">
+          <img src="../images/logo.png" alt="kitty">
+          <b><span>Binary</span>Cat</b>
+        </div>
+        <nav id="navbar" class="topnav">
+          <a href="index.html" class="current"><b>Home</b></a>
+          <a href="about.html"><b>About</b></a>
+          <a href="javascript:void(0)" id="sandwich" class="icon" onclick="getNav()">&#9776;</a>
+        </nav>
+      </div>
+    </header>
+
+    <section id="showcase">
+      <div class="container">
+        <h1>Integer Sequence Learning</h1>
+        <p>This is live demo of uData Crash Course group project made by our team, @BinaryCat.</p>
         <form method="POST" action="/predict">
-            <input name="text" size="40px" autocomplete="off" type="text" value="{{text}}{% if prediction %}, {{ prediction }}{%endif %}" autofocus/>
-            <button>Predict</button>
+          <input type="text" autocomplete="off" placeholder="Enter first elements of the sequence..." value="{{text}}{% if prediction %}, {{ prediction }}{%endif %}" autofocus>
+          <button type="submit" class="btn_primary"><b>Predict</b></button>
         </form>
-        <h1>{% if prediction %}{{ prediction }}{% else %}Nothing{% endif %}!</h1>
-        <h3>{% if pred_by %}Predicted by: {{ pred_by }}{% endif %}</h3>
-    </div>
-    </body>
-    <div id="footer">
+        <h2>{% if prediction %}Predicted number: {{ prediction }}{% else %}Nothing{% endif %}!</h2>
+        <p>{% if pred_by %}Predicted by: {{ pred_by }}{% endif %}</p>
+      </div>
+    </section>
+
+    <section id="description">
+      <div class="container">
+        <h2>Description</h2>
+        <p>
+          <a href="https://www.kaggle.com/c/integer-sequence-learning/" class="links"><b>Integer Sequence Learning</b></a>          is a Kaggle competition aimed to discover new approaches to non-typical Data Science problems. Dataset contains
+          100K sequences, and the objective is to predict the next term. Metric used for model evaluation is
+          <a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy" class="links"><b>Accuracy</b></a>,
+          hence we're heavily penalised for making incorrect predictions.
+        </p>
+        <p>
+          Our model uses a pipeline of algorithms to break task into more manageable pieces. Here is a short description of each algorithm:
+        </p>
+        <ol>
+          <li>
+            Prefix lookup using Trie data structure.
+          </li>
+          <li>
+            Difference Table
+          </li>
+          <li>
+            Linear and Non-linear Recurrent Relation
+          </li>
+          <li>
+            Markov Chain
+          </li>
+          <li>
+            Linear Regression
+          </li>
+          <li>
+            RNN
+          </li>
+          <li>
+            Mode. This is a good Baseline model to fall-back in case sequence has slipped through the pipeline without being recognized
+            by any of more powerful models.
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <footer>
+      <p>
         <a href="https://www.github.com/ptyshevs/int_seq">
-            <img src="static/blacktocat-32.png" width="16px" height="16px" style="padding-right:5px;">Fork on GitHub</a>
-    </div>
+          <img src="../images/github_logo.png"> Fork on GitHub
+        </a>
+      </p>
+    </footer>
+  </div>
+</body>
+
 </html>
