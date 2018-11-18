@@ -10,6 +10,10 @@ class MarkovChains:
         self.minlen = minlen
         self.slice = slice
         self.k = k
+        self.bad_model = False
+        if self.k >= self.minlen:
+            self.bad_model = True
+
 
     # def create_transition_matrix(self, sequence):
     #     table = dict()
