@@ -3,7 +3,9 @@
     <head>
         <script src="static/main.js"></script>
         <link rel="stylesheet" type="text/css" href="static/style.css">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Integer Sequence Learning Live Demo</title>
     </head>
 
     <body>
@@ -45,7 +47,7 @@
     </div>
     <div id="container">
         <form method="POST" action="/predict">
-            <input name="text" size="40px" autocomplete="off" type="text"/>
+            <input name="text" size="40px" autocomplete="off" type="text" value="{{text}}{% if prediction %}, {{ prediction }}{%endif %}" autofocus/>
             <button>Predict</button>
         </form>
         <h1>{% if prediction %}{{ prediction }}{% else %}Nothing{% endif %}!</h1>
@@ -53,6 +55,7 @@
     </div>
     </body>
     <div id="footer">
-        <a href="https://www.github.com/ptyshevs/int_seq">Check-out source code on GitHub</a>
+        <a href="https://www.github.com/ptyshevs/int_seq">
+            <img src="static/blacktocat-32.png" width="16px" height="16px" style="padding-right:5px;">Fork on GitHub</a>
     </div>
 </html>

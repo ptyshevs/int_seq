@@ -48,9 +48,9 @@ def form_process():
     if values is not None:
         modname, pred = model.predict1(values)
         pred = str(int(pred))
-        return render_template('index.html', prediction=pred, pred_by=modname)
+        return render_template('index.html', text=text, prediction=pred, pred_by=modname)
     else:
-        return render_template('index.html', prediction=None, pred_by=None)
+        return render_template('index.html', text=text, prediction=None, pred_by=None)
 
 
 def prepare_sequence(text):
