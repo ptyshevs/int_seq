@@ -150,4 +150,4 @@ class MarkovChains:
             predicted_values.append(float(pred_val))
             indices.append(ind)
             sequences.append(seq)
-        return indices, sequences, predicted_values
+        return sequences, indices, predicted_values
