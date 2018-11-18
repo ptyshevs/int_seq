@@ -7,3 +7,9 @@ The goal of this project was to develop stand-alone system that combines several
 ## Reproduce
 
 Run `reproduce.ipynb` and follow the instructions.
+
+## Acknowledgments
+
+- Our core model is a courtesy of [Balzac's Kernel](https://www.kaggle.com/balzac/prefixes-lookup-0-22).
+- The idea of reformatting problem as multi-class labeling that made Recurrent Network applicable was developed on the basis of [this repo](https://github.com/Kyubyong/integer_sequence_learning).
+- The idea of ensemble of models is discussed [here](https://www.kaggle.com/c/integer-sequence-learning/discussion/24971) in great detail.
