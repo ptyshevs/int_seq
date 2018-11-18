@@ -2,21 +2,46 @@ import numpy as np
 import pandas as pd
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
-from keras.layers import GRU, Dense
+from keras.layers import GRU, LSTM, Dense
 
 
 class RNN:
-    def __init__(self, weights_file='pre_train/rnn_weights.h5', input_len=69):
-        self.input_len = input_len
-        self.model = self._build_model()
+    def __init__(self, model='big', input_len=69, min_val=0, max_val=2000):
+        weights_file = 'pre_train/rnn_weights.h5'
+        if model == 'big':
+            self.input_len = 10
+            weights_file = 'pre_train/rnn_10.h5'
+        elif model == 'deep':
+            self.input_len = 10
+            weights_file = 'pre_train/rnn_deep_10.h5'
+        else:
+            self.input_len = 69
+        self.min_val = min_val
+        self.max_val = max_val
+        self.model = self._build_model(model)
         self.model.load_weights(weights_file)
         self.params = {'input_len:': self.input_len, 'model': self.model}
         
     
-    def _build_model(self):
+    def _build_model(self, model_type):
         model = Sequential()
-        model.add(GRU(128, input_shape=(self.input_len, 1)))
-        model.add(Dense(1000, activation='softmax'))
+        if model_type == 'big':
+            model.add(LSTM(256, input_shape=(self.input_len, 1), return_sequences=True))
+            model.add(LSTM(256))
+        elif model_type == 'deep':
+            model.add(LSTM(self.input_len, input_shape=(self.input_len, 1), return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len, return_sequences=True))
+            model.add(LSTM(self.input_len))
+        else:
+            model.add(GRU(128, input_shape=(self.input_len, 1)))
+        model.add(Dense(self.max_val, activation='softmax'))
         model.compile('adam', 'sparse_categorical_crossentropy', metrics=['accuracy'])
         return model
     
