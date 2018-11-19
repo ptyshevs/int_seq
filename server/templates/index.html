@@ -36,7 +36,7 @@
           <input name="text" size="40px" autocomplete="off" type="text" placeholder="Enter first elements of the sequence..." value="{{text}}{% if prediction %}, {{ prediction }}{%endif %}" autofocus/>
           <button type="submit" class="btn_primary"><b>Predict</b></button>
         </form>
-        <h2>{% if prediction %}Predicted number: {{ prediction }}{% else %}{% endif %}</h2>
+        <h2>{% if prediction %}Predicted number: {{ prediction }}{% elif bad_value %}{{ bad_value}}{% else %}{% endif %}</h2>
         <p>{% if pred_by %}Predicted by: {{ pred_by }}{% endif %}</p>
       </div>
     </section>

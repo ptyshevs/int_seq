@@ -46,6 +46,8 @@ def form_process():
     # print(text)
     values = prepare_sequence(text)
     if values is not None:
+        if any([(x < -10e20) or (x > 10e20) for x in values]):
+            return render_template('index.html', text="", prediction=None, pred_by=None, bad_value="Too big absolute value in a sequence")
         modname, pred = model.predict1(values)
         pred = str(int(pred))
         return render_template('index.html', text=text, prediction=pred, pred_by=modname)
