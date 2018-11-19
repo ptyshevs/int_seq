@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 import tqdm
 
+
 def acc_score(y_true, y_pred):
     """
     Calculate accuracy for the given predictions vector
@@ -16,10 +17,12 @@ def acc_score(y_true, y_pred):
             cnt_matches += 1
     return cnt_matches / len(y_true)
 
+
 class LinReg:
-    def __init__(self, max_prev=40, poly_deg=1, verbose=False):
+    def __init__(self, max_prev=40, poly_deg=1, minlen=3, verbose=False):
         self.max_prev = max_prev
         self.poly_deg = poly_deg
+        self.minlen = minlen
         self.verbose = verbose
         self._mod = LinearRegression()
         self.params = {'max_prev': self.max_prev, 'poly_deg': self.poly_deg, 'model': self._mod,
@@ -31,7 +34,7 @@ class LinReg:
         predictions = []
         ind_iter = data.index if isinstance(data, (np.ndarray, pd.Series)) else range(len(data))
         for seq, ind in tqdm.tqdm(zip(data, ind_iter)):
-            if len(seq) <= 2:
+            if len(seq) <= self.minlen:
                 continue
             pred = self._pred_best_reg(seq)
             if pred is None:
