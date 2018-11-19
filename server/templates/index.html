@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ISL | Home</title>
   <link rel="stylesheet" type="text/css" href="../static/style.css">
-  <link rel="shortcut icon" type="image/x-icon" href="../images/logo-icon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="../static/images/logo-icon.ico" />
   <script src="../static/main.js"></script>
 </head>
 
@@ -17,7 +17,7 @@
     <header>
       <div class="container">
         <div id="branding">
-          <img src="../images/logo.png" alt="kitty">
+          <img src="../static/images/logo.png" alt="kitty">
           <b><span>Binary</span>Cat</b>
         </div>
         <nav id="navbar" class="topnav">
@@ -33,10 +33,10 @@
         <h1>Integer Sequence Learning</h1>
         <p>This is live demo of uData Crash Course group project made by our team, @BinaryCat.</p>
         <form method="POST" action="/predict">
-          <input type="text" autocomplete="off" placeholder="Enter first elements of the sequence..." value="{{text}}{% if prediction %}, {{ prediction }}{%endif %}" autofocus>
+          <input name="text" size="40px" autocomplete="off" type="text" placeholder="Enter first elements of the sequence..." value="{{text}}{% if prediction %}, {{ prediction }}{%endif %}" autofocus/>
           <button type="submit" class="btn_primary"><b>Predict</b></button>
         </form>
-        <h2>{% if prediction %}Predicted number: {{ prediction }}{% else %}Nothing{% endif %}!</h2>
+        <h2>{% if prediction %}Predicted number: {{ prediction }}{% else %}{% endif %}</h2>
         <p>{% if pred_by %}Predicted by: {{ pred_by }}{% endif %}</p>
       </div>
     </section>
@@ -83,7 +83,7 @@
     <footer>
       <p>
         <a href="https://www.github.com/ptyshevs/int_seq">
-          <img src="../images/github_logo.png"> Fork on GitHub
+          <img src="../static/images/github_logo.png" /> Fork on GitHub
         </a>
       </p>
     </footer>

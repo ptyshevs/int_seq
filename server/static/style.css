@@ -67,7 +67,7 @@ header span {
 
 #showcase {
     min-height: 500px;
-    background: url("../images/numbers_dark.jpg") no-repeat center;
+    background: url("../static/images/numbers_dark.jpg") no-repeat center;
     background-size: cover;
     text-align: center;
     color: #ffffff;
