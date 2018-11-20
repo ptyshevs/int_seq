@@ -1,5 +1,5 @@
 function postload() {
-    setTimeout(showPage, 1500);
+    setTimeout(showPage, 2000);
 }
 
 function showPage() {
