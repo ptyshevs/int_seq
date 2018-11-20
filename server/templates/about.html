@@ -1,6 +1,76 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-<body>
-Stub for About page
+<head>
+  <title>ISL | About</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../static/style.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="../static/images/logo-icon.ico" />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <script src="../static/main.js"></script>
+</head>
+
+<body onload="postload()">
+  <div id="preloader"></div>
+
+  <div id="content" class="animate-bottom">
+    <header>
+      <div class="container">
+        <div id="branding">
+          <img src="../static/images/logo.png" alt="kitty">
+          <b><span>Binary</span>Cat</b>
+        </div>
+        <nav id="navbar" class="topnav">
+          <a href="index.html"><b>Home</b></a>
+          <a href="about.html"><b>About</b></a>
+          <a href="javascript:void(0)" id="sandwich" class="icon" onclick="getNav()">&#9776;</a>
+        </nav>
+      </div>
+    </header>
+
+    <section id="team">
+      <div class="container">
+        <h2>About us</h2>
+        <p>
+          Hi! We are <span><b>BinaryCat</b></span> team! We are passionate and ambitious learners, totally in love with maths,
+          data science, programming and solving complicated tasks. Each member of our small team is a talanted, hard-working person,
+          and each of us has a unique way of thinking and approach to problems. This fact allows us to achieve great results, while
+          having fun working and creating new stuff.
+        </p>
+        <p>Our team members:</p>
+        <ul>
+          <li>Tetiana Leliukh - our great captain :)</li>
+          <li>Yuliya Ditkovska</li>
+          <li>Anastasia Pirus</li>
+          <li>Pavel Tyshevskyi</li>
+          <li>Mykola Robotyshyn</li>
+          <li>Mykyta Yurin</li>
+          <li>Oleksandr Klanovets</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="logos">
+      <div class="container">
+        <div class="logo teamlogo">
+          <img src="../static/images/logo.png" alt="kitty">
+          <b><span>Binary</span>Cat</b>
+        </div>
+        <div class="logo">
+          <img src="../static/images/udata_logo.jpg" alt="UDataSchool">
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        <a href="https://www.github.com/ptyshevs/int_seq">
+          <img src="../static/images/github_logo.png" /> Fork on GitHub
+        </a>
+      </p>
+    </footer>
+  </div>
 </body>
+
 </html>

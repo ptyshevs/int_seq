@@ -1,6 +1,6 @@
 body {
     background: url("");
-    font-family: Calibri, sans-serif;
+    font-family: "Lato", Calibri, sans-serif;
     font-size: 16px;
     margin: 0;
     padding: 0;
@@ -158,8 +158,6 @@ footer a {
     display: none;
 }
 
-/*-------------------------------------------------------------------------------------*/
-
 @media only screen and (max-width: 768px) {
     .topnav a {
         display: none;
@@ -275,4 +273,102 @@ footer a {
 @keyframes animatebottom { 
   from { bottom:-50px; opacity:0 } 
   to{ bottom:0; opacity:1 }
+}
+
+/*-------------------------------------About-------------------------------------------*/
+
+#team {
+    margin-top: 60px;
+    font-size: 20px;
+}
+
+#team h2 {
+    text-align: center;
+}
+
+#team p {
+    text-align: justify;
+}
+
+#team p span {
+    color: #ff0000;
+}
+
+#logos .logo {
+    float: left;
+    height: 200px;
+    width: 45%;
+    margin: 20px 2.5%;
+    text-align: center;
+}
+
+#logos img {
+    height: 170px;
+}
+
+.teamlogo {
+    padding-top: 45px;
+    font-size: 65px;
+}
+
+#logos .teamlogo b {
+    font-size: 65px;
+}
+
+#logos .teamlogo img {
+    vertical-align: middle;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+
+
+.teamlogo span {
+    color: #ff0000;
+}
+
+@media only screen and (max-width: 1120px) {
+    .teamlogo {
+        padding: 0;
+    }
+
+    #logos .teamlogo img {
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #logos .logo {
+        float: none;
+        width: 100%;
+        height: 150px;
+    }
+
+    #logos img {
+        height: 100px;
+    }
+
+    .teamlogo {
+        padding-top: 25px;
+    }
+
+    #logos .teamlogo b {
+        font-size: 50px;
+    }
+
+    #logos .teamlogo img {
+        vertical-align: middle;
+        height: 80px;
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    #team {
+        font-size: 16px;
+    }
+
+    .teamlogo b {
+        display: none;
+    }
 }
