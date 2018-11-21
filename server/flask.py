@@ -21,8 +21,8 @@ app = Flask(__name__)
 def load_pipeline(verbose=False):
     models = [
         ('Difference Table', DiffTable(), None),
-        ('Linear Recurrent Relation', LinearModel(minlen=2), None),
-        ('Non-linear Recurrent Relation', NonLinearModel(minlen=2), None),
+        ('Linear Recurrent Relation', LinearModel(minlen=10), None),
+        ('Non-linear Recurrent Relation', NonLinearModel(minlen=12), None),
         ('Markov Chain', MarkovChains(6, 20, 4), markov_filter),
         ('Linear Regression', LinReg(), None),
         ('Recurrent NeuralNet', RNN(), rnn_filterv2),
