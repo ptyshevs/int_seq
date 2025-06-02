@@ -1,3 +1,5 @@
+HELLO CHISATO
+
 # Integer Sequence Learning
 This is a repository of project developed by @BinaryCat team during uData Crash Course.
 
